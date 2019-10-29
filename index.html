@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GifTastic</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+  <button type="button" class="btn btn-success" data-animal="eagle">eagle</button>
+  <button type="button" class="btn btn-success" data-animal="parrot">parrot</button>
+  <button type="button" class="btn btn-success" data-animal="panda">panda</button>
+  <button type="button" class="btn btn-success" data-animal="ostrich">ostrich</button>
+  <button type="button" class="btn btn-success" data-animal="elephant">elephant</button>
+  <button type="button" class="btn btn-success" data-animal="giraffe">giraffe</button>
+  <button type="button" class="btn btn-success" data-animal="monkey">monkey</button>
+  <button type="button" class="btn btn-success" data-animal="chicken">chicken</button>
+  <button type="button" class="btn btn-success" data-animal="duck">duck</button>
+  <button type="button" class="btn btn-success" data-animal="goose">goose</button>
+  <button type="button" class="btn btn-success" data-animal="sheep">sheep</button>
+
+
+
+  <div id="gifsAppearHere">
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+    $("button").on("click", function () {
+
+      var animal = $(this).attr("data-animal");
+      // var animal = $(this).data("animal");
+
+      var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=TpjyeclMUT5iwoRwQvKQocs7OblQdXdM&q=" + animal + "&limit=10&offset=0&rating=G&lang=en";
+
+      console.log(queryURL);
+      
+      // AJAX GET request
+      $.ajax({
+        url: queryURL,
+        method: "GET"
+      })
+        .then(function (response) {
+
+          var results = response.data;
+          console.log(results)
+
+          for (var i = 0; i < results.length; i++) {
+
+            // Only takes action if the photo is not rating r and pg-13.
+            if (results[i].rating !== "r" && results[i].rating !== "pg-13") {
+
+              console.log(results[i].rating)
+
+              // Creates a div for each gif Info.
+              var gifDiv = $("<div>");
+
+              // Creates a paragraph tag with the result item's rating.
+              var p = $("<p>").text("Rating: " + results[i].rating);
+
+              // Creates an image tag with an src attribute of a proprty pulled off the result item
+              var animalImage = $("<img>").attr("src", results[i].images.fixed_height.url);
+
+              console.log(animalImage)
+
+
+              gifDiv.append(p);
+              gifDiv.append(animalImage);
+
+              console.log(gifDiv)
+
+              // Prepends the gifDiv to the "#gifsAppearHere" div in the HTML
+              $("#gifsAppearHere").prepend(gifDiv);
+            }
+          }
+        });
+    });
+  </script>
+</body>
+
+</html>
