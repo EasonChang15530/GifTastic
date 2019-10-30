@@ -10,27 +10,29 @@
 </head>
 
 <body>
-  <button type="button" class="btn btn-success" data-animal="eagle">eagle</button>
-  <button type="button" class="btn btn-success" data-animal="parrot">parrot</button>
-  <button type="button" class="btn btn-success" data-animal="panda">panda</button>
-  <button type="button" class="btn btn-success" data-animal="ostrich">ostrich</button>
-  <button type="button" class="btn btn-success" data-animal="elephant">elephant</button>
-  <button type="button" class="btn btn-success" data-animal="giraffe">giraffe</button>
-  <button type="button" class="btn btn-success" data-animal="monkey">monkey</button>
-  <button type="button" class="btn btn-success" data-animal="chicken">chicken</button>
-  <button type="button" class="btn btn-success" data-animal="duck">duck</button>
-  <button type="button" class="btn btn-success" data-animal="goose">goose</button>
-  <button type="button" class="btn btn-success" data-animal="sheep">sheep</button>
+  <div id="animalArr">
+    <button type="button" class="btn btn-success" data-animal="eagle">eagle</button>
+    <button type="button" class="btn btn-success" data-animal="parrot">parrot</button>
+    <button type="button" class="btn btn-success" data-animal="panda">panda</button>
+    <button type="button" class="btn btn-success" data-animal="ostrich">ostrich</button>
+    <button type="button" class="btn btn-success" data-animal="elephant">elephant</button>
+    <button type="button" class="btn btn-success" data-animal="giraffe">giraffe</button>
+    <button type="button" class="btn btn-success" data-animal="monkey">monkey</button>
+    <button type="button" class="btn btn-success" data-animal="chicken">chicken</button>
+    <button type="button" class="btn btn-success" data-animal="duck">duck</button>
+    <button type="button" class="btn btn-success" data-animal="goose">goose</button>
+    <button type="button" class="btn btn-success" data-animal="sheep">sheep</button>
+  </div>
   <div id="gifsAppearHere">
   </div>
   <!-- Rendered Buttons will get Dumped Here  -->
   <div id="buttons-view"></div>
   <form id="animal-form">
-    <label for="animal-input">Add a animal, Yo!</label>
+    <label for="animal-input">Add a animal</label>
     <input type="text" id="animal-input">
     <br>
     <!-- Button triggers new animal to be added -->
-    <input id="add-animal" type="submit" value="Add a animal, Yo!">
+    <input id="add-animal" type="submit" value="Add a animal">
   </form>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
@@ -55,8 +57,10 @@
               var gifDiv = $("<div>");
               // Creating a paragraph tag with the result item's rating.
               var p = $("<p>").text("Rating: " + results[i].rating);
-              // Creating an image tag with an src attribute of a proprty pulled off the result item
-              var animalImage = $("<img>").attr("src", results[i].images.fixed_height.url);
+              // Creating an image tag with a src attribute of a proprty pulled off the result item
+              // and a data-still and data-animate attribute.
+              var animalImage = $("<img>");
+              animalImage.attr("src", results[i].images.fixed_height.url);
               animalImage.attr("data-still", results[i].images.original_still.url);
               animalImage.attr("data-animate", results[i].images.fixed_height.url);
               console.log(animalImage)
@@ -76,9 +80,11 @@
 
       if (state === "still") {
         console.log(state);
+        // changes this src attribute from data-still to data-animate.
         $(this).attr("src", $(this).attr("data-animate"));
         $(this).attr("data-state", "animate");
       } else {
+        // changes this src attribute from src = results[i].images.fixed_height.url to data-still.
         $(this).attr("src", $(this).attr("data-still"));
         $(this).attr("data-state", "still");
       }
@@ -107,14 +113,15 @@
       // grabs the input from the textbox
       var newAnimal = $("#animal-input").val().trim();
       // Adding animal from the textbox to our array
-      animal.push(newAnimal);
+      // this step is incorrect!!!
+      animalArr.html("<button>" + newAnimal + "</button>");
       // Calling renderButtons which handles the processing of our animal array
       renderButtons();
     });
-    // Adding a click event listener to all elements with a class of "animal-btn"
-    $(document).on("click", ".btn-success", displayAnimalInfo);
-    // Calling the renderButtons function to display the intial buttons
-    renderButtons();
+    // // Adding a click event listener to all elements with a class of "animal-btn"
+    // $(document).on("click", ".btn-success", displayAnimalInfo);
+    // // Calling the renderButtons function to display the intial buttons
+    // renderButtons();
   </script>
 </body>
 
