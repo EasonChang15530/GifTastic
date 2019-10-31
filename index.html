@@ -23,9 +23,6 @@
     <button type="button" class="btn btn-success" data-animal="goose">goose</button>
     <button type="button" class="btn btn-success" data-animal="sheep">sheep</button>
   </div> -->
-
-  <div id="gifsAppearHere">
-  </div>
   <!-- Rendered Buttons will get Dumped Here  -->
   <div id="buttons-view"></div>
   <form id="animal-form">
@@ -35,6 +32,8 @@
     <!-- Button triggers new animal to be added -->
     <input id="add-animal" type="submit" value="Add a animal">
   </form>
+  <div id="gifsAppearHere">
+  </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript">
 
@@ -45,7 +44,7 @@
       // renderButtons();
 
       function displayAnimalInfo() {
-
+        $("#gifsAppearHere").empty();
 
         var animal = $(this).attr("data-name");
         // var animal = $(this).data("animal");
