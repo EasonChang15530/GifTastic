@@ -10,22 +10,9 @@
 </head>
 
 <body>
-  <!-- <div id="animalArr">
-    <button type="button" class="btn btn-success" data-animal="eagle">eagle</button>
-    <button type="button" class="btn btn-success" data-animal="parrot">parrot</button>
-    <button type="button" class="btn btn-success" data-animal="panda">panda</button>
-    <button type="button" class="btn btn-success" data-animal="ostrich">ostrich</button>
-    <button type="button" class="btn btn-success" data-animal="elephant">elephant</button>
-    <button type="button" class="btn btn-success" data-animal="giraffe">giraffe</button>
-    <button type="button" class="btn btn-success" data-animal="monkey">monkey</button>
-    <button type="button" class="btn btn-success" data-animal="chicken">chicken</button>
-    <button type="button" class="btn btn-success" data-animal="duck">duck</button>
-    <button type="button" class="btn btn-success" data-animal="goose">goose</button>
-    <button type="button" class="btn btn-success" data-animal="sheep">sheep</button>
-  </div> -->
   <!-- Rendered Buttons will get Dumped Here  -->
   <div id="buttons-view"></div>
-  <form id="animal-form">
+  <form>
     <label for="animal-input">Add a animal</label>
     <input type="text" id="animal-input">
     <br>
@@ -34,14 +21,16 @@
   </form>
   <div id="gifsAppearHere">
   </div>
+  <!-- jQuery -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- javascript from here -->
   <script type="text/javascript">
 
     $(document).ready(function () {
 
       var animals = ["eagle", "parrot", "panda", "ostrich", "elephant", "giraffe", "monkey", "chicken", "duck", "goose", "sheep"];
 
-      // renderButtons();
+      
 
       function displayAnimalInfo() {
         $("#gifsAppearHere").empty();
@@ -82,6 +71,7 @@
             }
           });
       };
+
       // Sets pause and play gif
       $("#gifsAppearHere").on("click", "img", function () {
         var state = $(this).attr("data-state");
@@ -97,6 +87,7 @@
           $(this).attr("data-state", "still");
         }
       });
+
       function renderButtons() {
         // Deleting the animal prior to adding new animal
         $("#buttons-view").empty();
@@ -115,6 +106,7 @@
           $("#buttons-view").append(newButton);
         }
       }
+
       // This function handles events where a animal button is clicked
       $("#add-animal").on("click", function (event) {
         // prevents default refresh page.
@@ -126,9 +118,10 @@
         // Calling renderButtons which handles the processing of our animal array
         renderButtons();
       });
-      // // Adding a click event listener to all elements with a class of "animal-btn"
+
+      // Adding a click event listener to all elements with a class of "animal-btn"
       $(document).on("click", ".btn-success", displayAnimalInfo);
-      // // Calling the renderButtons function to display the intial buttons
+      // Calling the renderButtons function to display the intial buttons
       renderButtons();
     })
   </script>
