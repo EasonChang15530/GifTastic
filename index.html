@@ -10,7 +10,7 @@
 </head>
 
 <body>
-  <div id="animalArr">
+  <!-- <div id="animalArr">
     <button type="button" class="btn btn-success" data-animal="eagle">eagle</button>
     <button type="button" class="btn btn-success" data-animal="parrot">parrot</button>
     <button type="button" class="btn btn-success" data-animal="panda">panda</button>
@@ -22,7 +22,7 @@
     <button type="button" class="btn btn-success" data-animal="duck">duck</button>
     <button type="button" class="btn btn-success" data-animal="goose">goose</button>
     <button type="button" class="btn btn-success" data-animal="sheep">sheep</button>
-  </div>
+  </div> -->
 
   <div id="gifsAppearHere">
   </div>
@@ -40,12 +40,14 @@
 
     $(document).ready(function () {
 
-      // var topics = ["eagle", "parrot", "panda", "ostrich", "elephant", "giraffe", "monkey", "chicken", "duck", "goose", "sheep"];
+      var animals = ["eagle", "parrot", "panda", "ostrich", "elephant", "giraffe", "monkey", "chicken", "duck", "goose", "sheep"];
 
       // renderButtons();
 
-      $("button").on("click", function () {
-        var animal = $(this).attr("data-animal");
+      function displayAnimalInfo() {
+
+
+        var animal = $(this).attr("data-name");
         // var animal = $(this).data("animal");
         var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=TpjyeclMUT5iwoRwQvKQocs7OblQdXdM&q=" + animal + "&limit=10&offset=0&rating=G&lang=en";
         console.log(queryURL);
@@ -80,7 +82,7 @@
               }
             }
           });
-      });
+      };
       // Sets pause and play gif
       $("#gifsAppearHere").on("click", "img", function () {
         var state = $(this).attr("data-state");
@@ -100,16 +102,16 @@
         // Deleting the animal prior to adding new animal
         $("#buttons-view").empty();
         // Looping through the array of animal
-        for (var i = 0; i < results.length; i++) {
+        for (var i = 0; i < animals.length; i++) {
           // Then dynamicaly generating buttons for each animal in the array
           var newButton = $("<button>");
           // Adding a class of animal-btn to our button
           newButton.addClass("btn btn-success");
           newButton.addClass('newAnimal')
           // Adding a data-attribute
-          newButton.attr("data-name", results[i]);
+          newButton.attr("data-name", animals[i]);
           // Providing the initial button text
-          newButton.text(results[i]);
+          newButton.text(animals[i]);
           // Adding the button to the buttons-view div
           $("#buttons-view").append(newButton);
         }
@@ -121,16 +123,14 @@
         // grabs the input from the textbox
         var newAnimal = $("#animal-input").val().trim();
         // Adding animal from the textbox to our array
-        // this step is incorrect!!!
-        // animalArr.html("<button>" + newAnimal + "</button>");
-        results.push(newAnimal);
+        animals.push(newAnimal);
         // Calling renderButtons which handles the processing of our animal array
         renderButtons();
       });
       // // Adding a click event listener to all elements with a class of "animal-btn"
-      // $(document).on("click", ".btn-success", displayAnimalInfo);
+      $(document).on("click", ".btn-success", displayAnimalInfo);
       // // Calling the renderButtons function to display the intial buttons
-      // renderButtons();
+      renderButtons();
     })
   </script>
 </body>
